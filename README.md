@@ -32,6 +32,7 @@ sports-data-api/
 - **[Visão do produto e escopo](./docs/product/README.md)** – Esportes cobertos, entidades, casos de uso
 - **[Padrões de código e arquitetura](./docs/code-standards/README.md)** – Arquitetura, convenções, API, webhooks, Firebase, automação
 - **[Documentação de API (Swagger + Scalar)](./docs/code-standards/08-api-documentation.md)** – Regra de documentar todos os endpoints com DTOs de request/response; uso de Swagger e Scalar
+- **[Plano de desenvolvimento](./docs/DEVELOPMENT_PLAN.md)** – Plano completo com checklist para marcar e atualizar o que já foi desenvolvido
 
 ## Setup (após implementação)
 
