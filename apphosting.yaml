@@ -20,7 +20,6 @@ scripts:
   runCommand: node dist/main.js
 
 # Arquivos necessários no deploy: dist (build) + node_modules (dependências em runtime)
-# Só "dist" faria o container não encontrar @nestjs/common etc.
 outputFiles:
   serverApp:
     include: [dist, node_modules]
