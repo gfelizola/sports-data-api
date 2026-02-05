@@ -28,14 +28,14 @@ export class FirebaseController {
 	async testConnection(): Promise<FirebaseTestResponseDto> {
 		const db = this.firebaseService.getFirestore();
 		const databaseId =
-			this.configService.get("FIREBASE_FIRESTORE_DATABASE_ID", { infer: true }) ?? "sports-data";
+			this.configService.get("APP_FIRESTORE_DATABASE_ID", { infer: true }) ?? "sports-data";
 
 		if (db === null) {
 			return {
 				connected: false,
 				databaseId,
 				message:
-					"Firestore não inicializado. Verifique FIREBASE_PROJECT_ID e credenciais (FIREBASE_CLIENT_EMAIL/FIREBASE_PRIVATE_KEY ou GOOGLE_APPLICATION_CREDENTIALS).",
+					"Firestore não inicializado. Verifique APP_PROJECT_ID e credenciais (APP_SA_CLIENT_EMAIL/APP_SA_PRIVATE_KEY ou GOOGLE_APPLICATION_CREDENTIALS).",
 			};
 		}
 

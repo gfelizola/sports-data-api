@@ -24,7 +24,7 @@ export class FirebaseService {
 		if (this.app === null) {
 			return null;
 		}
-		const databaseId = this.configService.get("FIREBASE_FIRESTORE_DATABASE_ID", {
+		const databaseId = this.configService.get("APP_FIRESTORE_DATABASE_ID", {
 			infer: true,
 		});
 		this.firestore = getFirestore(this.app, databaseId ?? "sports-data");
@@ -51,7 +51,7 @@ export class FirebaseService {
 			this.app = getApps()[0] as App;
 			return;
 		}
-		const projectId = this.configService.get("FIREBASE_PROJECT_ID", { infer: true });
+		const projectId = this.configService.get("APP_PROJECT_ID", { infer: true });
 		const nodeEnv = this.configService.get("NODE_ENV", { infer: true });
 
 		if (!projectId && nodeEnv === "test") {
@@ -66,8 +66,8 @@ export class FirebaseService {
 			}
 		}
 
-		const clientEmail = this.configService.get("FIREBASE_CLIENT_EMAIL", { infer: true });
-		const privateKey = this.configService.get("FIREBASE_PRIVATE_KEY", { infer: true });
+		const clientEmail = this.configService.get("APP_SA_CLIENT_EMAIL", { infer: true });
+		const privateKey = this.configService.get("APP_SA_PRIVATE_KEY", { infer: true });
 
 		if (clientEmail && privateKey) {
 			const privateKeyUnescaped = privateKey.replace(/\\n/g, "\n");

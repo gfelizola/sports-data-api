@@ -1,0 +1,58 @@
+# Firebase App Hosting – Sports Data API
+# https://firebase.google.com/docs/app-hosting/configure
+#
+# Criar o backend: firebase apphosting:backends:create --project SEU_PROJECT_ID
+# Ou pelo Console: Build > App Hosting > Create backend
+#
+# Variáveis reservadas (não definir): PORT, K_SERVICE, K_REVISION, K_CONFIGURATION, X_FIREBASE_*
+
+runConfig:
+  cpu: 1
+  memoryMiB: 512
+  minInstances: 0
+  maxInstances: 10
+  concurrency: 80
+
+# Build e execução (NestJS)
+# App Hosting usa npm no build; o script "build" do package.json roda com npm run build.
+scripts:
+  buildCommand: npm run build
+  runCommand: node dist/main.js
+
+# Arquivos necessários no deploy (saída do nest build)
+outputFiles:
+  serverApp:
+    include: [dist]
+
+# Variáveis de ambiente
+# App Hosting reserva prefixos FIREBASE_, X_GOOGLE_, EXT_ – use APP_* para credenciais Firebase.
+# Valores sensíveis: usar Secret Manager e referenciar com "secret: NOME_DO_SECRET"
+# Criar secrets: firebase apphosting:secrets:set APP_SA_CLIENT_EMAIL (e escolher nome APP_SA_CLIENT_EMAIL quando perguntar)
+env:
+  - variable: NODE_ENV
+    value: production
+
+  - variable: APP_VERSION
+    value: "0.1.0"
+
+  - variable: PORT
+    value: 8080
+
+  - variable: APP_FIRESTORE_DATABASE_ID
+    value: sports-data
+
+  # Projeto Firebase (obrigatório em produção)
+  - variable: APP_PROJECT_ID
+    value: SEU_PROJECT_ID
+  
+  # Credenciais Firebase Admin – usar secrets (nomes sem prefixo reservado)
+  # firebase apphosting:secrets:set APP_SA_CLIENT_EMAIL → quando perguntar "env var name", use APP_SA_CLIENT_EMAIL
+  - variable: APP_SA_CLIENT_EMAIL
+    secret: APP_SA_CLIENT_EMAIL
+
+  - variable: APP_SA_PRIVATE_KEY
+    secret: APP_SA_PRIVATE_KEY
+
+  # CORS (opcional): origens permitidas separadas por vírgula
+  # - variable: CORS_ORIGINS
+  #   value: "https://seu-app.web.app,https://seu-dominio.com"

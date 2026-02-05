@@ -22,7 +22,7 @@ describe("FirebaseController", () => {
 
 		controller = module.get<FirebaseController>(FirebaseController);
 		configGet.mockImplementation((key: string) =>
-			key === "FIREBASE_FIRESTORE_DATABASE_ID" ? "sports-data" : undefined,
+			key === "APP_FIRESTORE_DATABASE_ID" ? "sports-data" : undefined,
 		);
 	});
 

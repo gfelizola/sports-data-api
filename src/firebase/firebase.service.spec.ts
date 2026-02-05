@@ -41,11 +41,11 @@ describe("FirebaseService", () => {
 		jest.clearAllMocks();
 	});
 
-	it("deve retornar null em getFirestore quando NODE_ENV=test e sem FIREBASE_PROJECT_ID", () => {
+	it("deve retornar null em getFirestore quando NODE_ENV=test e sem APP_PROJECT_ID", () => {
 		configGet.mockImplementation((key: string) => {
 			if (key === "NODE_ENV") return "test";
-			if (key === "FIREBASE_PROJECT_ID") return undefined;
-			if (key === "FIREBASE_FIRESTORE_DATABASE_ID") return "sports-data";
+			if (key === "APP_PROJECT_ID") return undefined;
+			if (key === "APP_FIRESTORE_DATABASE_ID") return "sports-data";
 			return undefined;
 		});
 
@@ -57,10 +57,10 @@ describe("FirebaseService", () => {
 		const { getFirestore } = await import("firebase-admin/firestore");
 		configGet.mockImplementation((key: string) => {
 			if (key === "NODE_ENV") return "development";
-			if (key === "FIREBASE_PROJECT_ID") return "my-project";
-			if (key === "FIREBASE_FIRESTORE_DATABASE_ID") return "sports-data";
-			if (key === "FIREBASE_CLIENT_EMAIL") return "test@project.iam.gserviceaccount.com";
-			if (key === "FIREBASE_PRIVATE_KEY") return "fake-key";
+			if (key === "APP_PROJECT_ID") return "my-project";
+			if (key === "APP_FIRESTORE_DATABASE_ID") return "sports-data";
+			if (key === "APP_SA_CLIENT_EMAIL") return "test@project.iam.gserviceaccount.com";
+			if (key === "APP_SA_PRIVATE_KEY") return "fake-key";
 			return undefined;
 		});
 
@@ -72,7 +72,7 @@ describe("FirebaseService", () => {
 	it("getCollection deve lançar quando Firestore não está inicializado", () => {
 		configGet.mockImplementation((key: string) => {
 			if (key === "NODE_ENV") return "test";
-			if (key === "FIREBASE_PROJECT_ID") return undefined;
+			if (key === "APP_PROJECT_ID") return undefined;
 			return undefined;
 		});
 
@@ -82,10 +82,10 @@ describe("FirebaseService", () => {
 	it("getCollection deve retornar referência da coleção quando Firestore está inicializado", () => {
 		configGet.mockImplementation((key: string) => {
 			if (key === "NODE_ENV") return "development";
-			if (key === "FIREBASE_PROJECT_ID") return "my-project";
-			if (key === "FIREBASE_FIRESTORE_DATABASE_ID") return "sports-data";
-			if (key === "FIREBASE_CLIENT_EMAIL") return "test@project.iam.gserviceaccount.com";
-			if (key === "FIREBASE_PRIVATE_KEY") return "fake-key";
+			if (key === "APP_PROJECT_ID") return "my-project";
+			if (key === "APP_FIRESTORE_DATABASE_ID") return "sports-data";
+			if (key === "APP_SA_CLIENT_EMAIL") return "test@project.iam.gserviceaccount.com";
+			if (key === "APP_SA_PRIVATE_KEY") return "fake-key";
 			return undefined;
 		});
 
@@ -97,10 +97,10 @@ describe("FirebaseService", () => {
 	it("deve retornar mesma instância em chamadas sucessivas a getFirestore", () => {
 		configGet.mockImplementation((key: string) => {
 			if (key === "NODE_ENV") return "development";
-			if (key === "FIREBASE_PROJECT_ID") return "my-project";
-			if (key === "FIREBASE_FIRESTORE_DATABASE_ID") return "sports-data";
-			if (key === "FIREBASE_CLIENT_EMAIL") return "test@project.iam.gserviceaccount.com";
-			if (key === "FIREBASE_PRIVATE_KEY") return "fake-key";
+			if (key === "APP_PROJECT_ID") return "my-project";
+			if (key === "APP_FIRESTORE_DATABASE_ID") return "sports-data";
+			if (key === "APP_SA_CLIENT_EMAIL") return "test@project.iam.gserviceaccount.com";
+			if (key === "APP_SA_PRIVATE_KEY") return "fake-key";
 			return undefined;
 		});
 
@@ -118,8 +118,8 @@ describe("FirebaseService", () => {
 
 		configGet.mockImplementation((key: string) => {
 			if (key === "NODE_ENV") return "development";
-			if (key === "FIREBASE_PROJECT_ID") return "my-project";
-			if (key === "FIREBASE_FIRESTORE_DATABASE_ID") return "sports-data";
+			if (key === "APP_PROJECT_ID") return "my-project";
+			if (key === "APP_FIRESTORE_DATABASE_ID") return "sports-data";
 			return undefined;
 		});
 
@@ -136,8 +136,8 @@ describe("FirebaseService", () => {
 
 		configGet.mockImplementation((key: string) => {
 			if (key === "NODE_ENV") return "development";
-			if (key === "FIREBASE_PROJECT_ID") return undefined;
-			if (key === "FIREBASE_FIRESTORE_DATABASE_ID") return "sports-data";
+			if (key === "APP_PROJECT_ID") return undefined;
+			if (key === "APP_FIRESTORE_DATABASE_ID") return "sports-data";
 			return undefined;
 		});
 
@@ -148,8 +148,8 @@ describe("FirebaseService", () => {
 	it("deve inicializar com applicationDefault quando não há projectId mas applicationDefault funciona", () => {
 		configGet.mockImplementation((key: string) => {
 			if (key === "NODE_ENV") return "development";
-			if (key === "FIREBASE_PROJECT_ID") return undefined;
-			if (key === "FIREBASE_FIRESTORE_DATABASE_ID") return "sports-data";
+			if (key === "APP_PROJECT_ID") return undefined;
+			if (key === "APP_FIRESTORE_DATABASE_ID") return "sports-data";
 			return undefined;
 		});
 
@@ -165,10 +165,10 @@ describe("FirebaseService", () => {
 
 		configGet.mockImplementation((key: string) => {
 			if (key === "NODE_ENV") return "development";
-			if (key === "FIREBASE_PROJECT_ID") return "my-project";
-			if (key === "FIREBASE_FIRESTORE_DATABASE_ID") return "sports-data";
-			if (key === "FIREBASE_CLIENT_EMAIL") return undefined;
-			if (key === "FIREBASE_PRIVATE_KEY") return undefined;
+			if (key === "APP_PROJECT_ID") return "my-project";
+			if (key === "APP_FIRESTORE_DATABASE_ID") return "sports-data";
+			if (key === "APP_SA_CLIENT_EMAIL") return undefined;
+			if (key === "APP_SA_PRIVATE_KEY") return undefined;
 			return undefined;
 		});
 
@@ -182,10 +182,10 @@ describe("FirebaseService", () => {
 
 		configGet.mockImplementation((key: string) => {
 			if (key === "NODE_ENV") return "development";
-			if (key === "FIREBASE_PROJECT_ID") return "my-project";
-			if (key === "FIREBASE_FIRESTORE_DATABASE_ID") return "sports-data";
-			if (key === "FIREBASE_CLIENT_EMAIL") return "test@project.iam.gserviceaccount.com";
-			if (key === "FIREBASE_PRIVATE_KEY") return "fake-key";
+			if (key === "APP_PROJECT_ID") return "my-project";
+			if (key === "APP_FIRESTORE_DATABASE_ID") return "sports-data";
+			if (key === "APP_SA_CLIENT_EMAIL") return "test@project.iam.gserviceaccount.com";
+			if (key === "APP_SA_PRIVATE_KEY") return "fake-key";
 			return undefined;
 		});
 

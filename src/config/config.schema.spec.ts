@@ -42,32 +42,60 @@ describe("validate (config.schema)", () => {
 		expect(() => validate({ NODE_ENV: "test", PORT: 99999 })).toThrow("Config validation error");
 	});
 
-	it("deve usar default sports-data para FIREBASE_FIRESTORE_DATABASE_ID quando ausente", () => {
+	it("deve usar default sports-data para APP_FIRESTORE_DATABASE_ID quando ausente", () => {
 		const result = validate({ NODE_ENV: "development", PORT: 3000 });
-		expect(result.FIREBASE_FIRESTORE_DATABASE_ID).toBe("sports-data");
+		expect(result.APP_FIRESTORE_DATABASE_ID).toBe("sports-data");
 	});
 
-	it("deve aceitar FIREBASE_FIRESTORE_DATABASE_ID customizado", () => {
+	it("deve aceitar APP_FIRESTORE_DATABASE_ID customizado", () => {
+		const result = validate({
+			NODE_ENV: "test",
+			PORT: 3000,
+			APP_FIRESTORE_DATABASE_ID: "my-db",
+		});
+		expect(result.APP_FIRESTORE_DATABASE_ID).toBe("my-db");
+	});
+
+	it("deve aceitar FIREBASE_FIRESTORE_DATABASE_ID e normalizar para APP_*", () => {
 		const result = validate({
 			NODE_ENV: "test",
 			PORT: 3000,
 			FIREBASE_FIRESTORE_DATABASE_ID: "my-db",
 		});
-		expect(result.FIREBASE_FIRESTORE_DATABASE_ID).toBe("my-db");
+		expect(result.APP_FIRESTORE_DATABASE_ID).toBe("my-db");
 	});
 
-	it("deve exigir FIREBASE_PROJECT_ID em production", () => {
+	it("deve exigir APP_PROJECT_ID em production", () => {
 		expect(() => validate({ NODE_ENV: "production", PORT: 3000 })).toThrow(
 			"Config validation error",
 		);
 	});
 
-	it("deve aceitar FIREBASE_PROJECT_ID em production", () => {
+	it("deve aceitar APP_PROJECT_ID em production", () => {
+		const result = validate({
+			NODE_ENV: "production",
+			PORT: 3000,
+			APP_PROJECT_ID: "my-project",
+		});
+		expect(result.APP_PROJECT_ID).toBe("my-project");
+	});
+
+	it("deve aceitar FIREBASE_PROJECT_ID em production e normalizar para APP_*", () => {
 		const result = validate({
 			NODE_ENV: "production",
 			PORT: 3000,
 			FIREBASE_PROJECT_ID: "my-project",
 		});
-		expect(result.FIREBASE_PROJECT_ID).toBe("my-project");
+		expect(result.APP_PROJECT_ID).toBe("my-project");
+	});
+
+	it("deve dar preferência a APP_* quando ambos APP_* e FIREBASE_* estão definidos", () => {
+		const result = validate({
+			NODE_ENV: "production",
+			PORT: 3000,
+			APP_PROJECT_ID: "from-app",
+			FIREBASE_PROJECT_ID: "from-firebase",
+		});
+		expect(result.APP_PROJECT_ID).toBe("from-app");
 	});
 });
