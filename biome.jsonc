@@ -1,0 +1,61 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"files": {
+		"includes": [
+			"**/src/**",
+			"**/test/**",
+			"*.config.js",
+			"*.config.ts",
+			"package.json",
+			"tsconfig*.json",
+			"nest-cli.json",
+			"jest.setup.js"
+		],
+		"ignoreUnknown": true
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineWidth": 100
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"noUnusedVariables": { "level": "warn" }
+			},
+			"style": {
+				"noParameterAssign": "error",
+				"useConst": "error",
+				"useImportType": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "warn"
+			}
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.spec.ts", "**/__mocks__/**", "**/mocks/**"],
+			"linter": {
+				"rules": {
+					"suspicious": { "noExplicitAny": "off" }
+				}
+			}
+		},
+		{
+			"includes": ["**/config.schema.ts"],
+			"linter": {
+				"rules": {
+					"suspicious": { "noThenProperty": "off" }
+				}
+			}
+		}
+	],
+	"javascript": {
+		"parser": { "unsafeParameterDecoratorsEnabled": true },
+		"formatter": { "quoteStyle": "double" }
+	}
+}

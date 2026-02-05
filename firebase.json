@@ -1,0 +1,8 @@
+{
+  "firestore": [
+    {
+      "database": "sports-data",
+      "rules": "firestore.rules"
+    }
+  ]
+}
