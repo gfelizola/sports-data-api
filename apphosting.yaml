@@ -19,10 +19,11 @@ scripts:
   buildCommand: npm run build
   runCommand: node dist/main.js
 
-# Arquivos necessários no deploy (saída do nest build)
+# Arquivos necessários no deploy: dist (build) + node_modules (dependências em runtime)
+# Só "dist" faria o container não encontrar @nestjs/common etc.
 outputFiles:
   serverApp:
-    include: [dist]
+    include: [dist, node_modules]
 
 # Variáveis de ambiente
 # App Hosting reserva prefixos FIREBASE_, X_GOOGLE_, EXT_ – use APP_* para credenciais Firebase.
@@ -34,9 +35,6 @@ env:
 
   - variable: APP_VERSION
     value: "0.1.0"
-
-  - variable: PORT
-    value: 8080
 
   - variable: APP_FIRESTORE_DATABASE_ID
     value: sports-data
