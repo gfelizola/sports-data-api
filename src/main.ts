@@ -95,7 +95,11 @@ async function bootstrap() {
 	);
 
 	const port = env.PORT ?? 3000;
-	await app.listen(port);
+	const host = process.env.HOST ?? "0.0.0.0";
+	await app.listen(port, host);
 }
 
-void bootstrap();
+bootstrap().catch((err) => {
+	console.error("Bootstrap failed:", err);
+	process.exit(1);
+});
